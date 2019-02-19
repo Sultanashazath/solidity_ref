@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html>
+<head> <meta charset="utf-8"><CENTER><H2>DECENTRAILIZED APPLICATION<H2></CENTER>
+<script src="web3.min.js"></script></head>
+<body style="background-color:powderblue;">
+  
+
+<script>
+
+var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io"));
+//web3.eth.defaultAccount="0xCc4D98adD8317803D1EE9D6EA43EedE5CF848a81";
+web3.eth.defaultAccount = web3.eth.accounts[0];
+var conn=web3.eth.contract([
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalcount",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "suser",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "bytes14"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "bisbn",
+				"type": "uint256"
+			}
+		],
+		"name": "search",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "b",
+		"outputs": [
+			{
+				"name": "bname",
+				"type": "bytes14"
+			},
+			{
+				"name": "bisbn",
+				"type": "uint256"
+			},
+			{
+				"name": "bcount",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "bisbn",
+				"type": "uint256"
+			},
+			{
+				"name": "bname",
+				"type": "bytes14"
+			}
+		],
+		"name": "addbookdetails",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes14"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"name": "uname",
+				"type": "bytes14"
+			}
+		],
+		"name": "adduserdetails",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "fineamount",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "bisbn",
+				"type": "uint256"
+			},
+			{
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getbook",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "bisbn",
+				"type": "uint256"
+			},
+			{
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "returnbook",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
+);
+var con1=conn.at('0x631d7e85557ecb0ec940359935bb117c2b4ad9e8'); 
+
+function adduser(){
+	var x=document.getElementById("uname").value;
+	var y=document.getElementById("id").value;
+        
+	 //button.addEventListener('click',function(){
+ 	con1.adduserdetails(y,x, function (error,result){
+		if(!error)
+		{
+		alert(result);
+		}
+});
+            
+}
+
+
+
+
+
+function addbook(){
+        var x1=document.getElementById("bname").value;
+	var y1=document.getElementById("isbn").value;
+	con1.addbookdetails(y1,x1,function(error,result){
+
+	if(!error)
+	{
+	alert(result);
+	}
+	});
+}
+function gbook(){
+		
+ 		var x2=document.getElementById("isbn1").value;
+		var y2=document.getElementById("id1").value;
+                con1.getbook(x2,y2,function (error,result){
+		if(!error)
+		{
+		alert(result);
+		}
+		});
+		
+}
+function booksearch(){
+		var x3=document.getElementById("isbn2").value;
+		
+		//document.getElementById("result").innerHTML=z3;
+		con1.search(x3,function (error,result){
+	        if(!error)
+		{
+		alert(result);
+		}
+});
+}
+function rbook(){
+
+		var x3=document.getElementById("isbn3").value;
+		var y3=document.getElementById("id2").value;
+		con1.returnbook(x3,y3,function (error,result){
+		if(!error)
+		{
+		alert(result);
+		}
+});
+}
+
+function show(){
+     con1.fineamount(function (error,result){
+		if(!error)
+		{
+		alert(result);
+		}
+});
+
+}		
+</script>
+<FORM>
+
+<FIELDSET>
+ <LEGEND><H3>libray management</H3></LEGEND>
+
+student details[updating]:<br>
+		name:<input id="uname" value=" ">
+		id:<input id="id" value=" ">
+		<button type="button"  onclick="adduser()" >click</button>
+		
+		<BR>
+				
+library details[updating]:<br>
+                Bookname:<input id="bname" value=" ">
+		Id:<input id="isbn" value=" ">
+	<button type="button" onclick="addbook()" >click</button>	
+		<BR>
+
+GetBook:<br>
+	ISBN:<input id="isbn1" value=" ">
+        userId:<input id ="id1" value=" ">
+	<button type="button" id="click" onclick="gbook()" >click</button><br>	
+Search:<br/>
+	ISBN:<input id="isbn2" value=" ">
+	<button type="button"  onclick="booksearch()" >click</button>
+	
+        <br>
+        
+Return book:<br>
+	   ISBN:<input id="isbn3" value=" ">
+       	   userId:<input id ="id2" value=" ">
+	  <button type="button"  onclick="rbook()" > click</button>	<br>
+
+fine deatils:<br>
+		<button type="button" onclick="show()"> fine</button><br>
+
+</FIELDSET>	
+</FORM>																				
+</body>
+</html>

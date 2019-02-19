@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test</title>
+    <script src="./web3.min.js"></script>
+    
+  </head>
+<body bgcolor="#E6E6FA"><center>
+
+
+
+
+
+<script>
+var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/0a18690429ba470fa684b4eefd0d96b2"));
+  // if(!web3.isConnected()) {
+  
+     //   console.log("Ok");
+        
+    //  } else {
+     //   console.log("no");
+     // }
+      web3.version.getNetwork((err, netId) => {
+            switch (netId) {
+              case "1":
+                console.log('This is mainnet')
+                break
+              case "2":
+                console.log('This is the deprecated Morden test network.')
+                break
+              case "3":
+                console.log('This is the ropsten test network.')
+                break
+              case "4":
+                console.log('This is the Rinkeby test network.')
+                break
+              case "42":
+                console.log('This is the Kovan test network.')
+                break
+              default:
+                console.log('This is an unknown network.')
+            }
+        })
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+
+var abi=[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "a",
+				"type": "uint128"
+			}
+		],
+		"name": "set",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "contractA",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "a",
+				"type": "uint128"
+			}
+		],
+		"name": "re",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+       var aa= web3.eth.contract(abi);
+
+var contractI=aa.at('0x2c0f2d6ab7e4ef65ea5d588ab6dc18bec022377a');
+     
+        
+
+</script>
+</html>
